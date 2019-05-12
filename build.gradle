@@ -1,13 +1,11 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'java'
 }
 
-apply plugin: 'io.spring.dependency-management'
-
 group = 'wg.weather'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 configurations {
 	compileOnly {
@@ -15,14 +13,8 @@ configurations {
 	}
 }
 
-repositories {
-	mavenCentral()
-}
-
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+allprojects {
+	repositories {
+		mavenCentral()
+	}
 }

@@ -1,4 +1,4 @@
 rootProject.name = 'weather_kafka_aggregator'
 
-include 'weather'
+include 'weather-data-producer'
 

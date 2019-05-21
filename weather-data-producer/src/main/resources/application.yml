@@ -1,0 +1,17 @@
+kafka:
+  broker: localhost:9092
+  schema_registry: http://localhost:8081
+  topics:
+    weather: Weather
+
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: ${kafka.broker}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      acks: all
+      properties:
+        schema:
+          registry:
+            url: ${kafka.schema_registry}

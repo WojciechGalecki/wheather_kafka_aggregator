@@ -13,8 +13,11 @@ configurations {
 	}
 }
 
-allprojects {
+subprojects {
 	repositories {
+		mavenLocal()
 		mavenCentral()
+		jcenter()
+		maven { url 'http://packages.confluent.io/maven/' }
 	}
 }

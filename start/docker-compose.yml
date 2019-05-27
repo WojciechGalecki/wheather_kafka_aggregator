@@ -3,7 +3,7 @@ version: '2'
 services:
 
   weather:
-    image: weather-service-v1
+    image: weather-data-producer-v1
     ports:
       - "10001:8080"
 

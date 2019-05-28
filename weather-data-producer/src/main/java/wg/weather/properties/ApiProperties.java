@@ -5,9 +5,10 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-@Component
 @Data
-@ConfigurationProperties("kafka.topics")
-public class KafkaTopicsProperties {
-    private String weather;
+@Component
+@ConfigurationProperties("api")
+public class ApiProperties {
+    private String id;
+    private String url;
 }

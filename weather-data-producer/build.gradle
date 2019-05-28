@@ -13,6 +13,7 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     compile "org.apache.avro:avro:1.8.2"
@@ -20,8 +21,6 @@ dependencies {
     compile ("io.confluent:kafka-avro-serializer:3.3.1") {
         exclude group: 'org.slf4j'
     }
-    
-    annotationProcessor 'org.projectlombok:lombok'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

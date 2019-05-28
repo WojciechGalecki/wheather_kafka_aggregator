@@ -1,3 +1,7 @@
+api:
+  id: 626bdb25c912287d72234cf47cbf2d9e
+  url: https://samples.openweathermap.org/data/2.5/weather
+
 kafka:
   broker: localhost:9092
   schema_registry: http://localhost:8081

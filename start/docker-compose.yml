@@ -6,6 +6,8 @@ services:
     image: weather-data-producer-v1
     ports:
       - "10001:8080"
+    depends_on:
+      - kafka-cluster
 
   kafka-cluster:
     image: landoop/fast-data-dev:cp3.3.0

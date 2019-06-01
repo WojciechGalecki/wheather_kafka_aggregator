@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 

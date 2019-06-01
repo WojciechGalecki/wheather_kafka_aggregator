@@ -126,28 +126,6 @@
          }
       },
       {
-         "name":"rain",
-         "type":{
-            "type":"record",
-            "name":"RainSnowFall",
-            "namespace":"wg.weather.model",
-            "fields":[
-               {
-                  "name":"_1h",
-                  "type": ["null", "int"]
-               },
-               {
-                  "name":"_3h",
-                  "type": ["null", "int"]
-               }
-            ]
-         }
-      },
-      {
-         "name":"snow",
-         "type":"wg.weather.model.RainSnowFall"
-      },
-      {
          "name":"dt",
          "type": ["null", "long"]
       },

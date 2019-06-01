@@ -37,7 +37,7 @@ public class WeatherClientTest {
 
     @Test
     public void When_GetWeatherByCityName_Expect_ProperCallToApi() throws URISyntaxException {
-        String expectedUrl = "url?q=city&appid=id";
+        String expectedUrl = "url?q=city&APPID=id";
         client.getWeatherByCityName("city");
         verify(restTemplate).getForObject(new URI(expectedUrl), WeatherModel.class);
     }

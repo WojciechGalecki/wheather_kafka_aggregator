@@ -12,11 +12,11 @@
             "fields":[
                {
                   "name":"lon",
-                  "type":"double"
+                  "type": ["null", "double"]
                },
                {
                   "name":"lat",
-                  "type":"double"
+                  "type": ["null", "double"]
                }
             ]
          }
@@ -32,19 +32,19 @@
                "fields":[
                   {
                      "name":"id",
-                     "type":"int"
+                     "type": ["null", "int"]
                   },
                   {
                      "name":"main",
-                     "type":"string"
+                     "type": ["null", "string"]
                   },
                   {
                      "name":"description",
-                     "type":"string"
+                     "type": ["null", "string"]
                   },
                   {
                      "name":"icon",
-                     "type":"string"
+                     "type": ["null", "string"]
                   }
                ]
             },
@@ -53,7 +53,7 @@
       },
       {
          "name":"base",
-         "type":"string"
+         "type": ["null", "string"]
       },
       {
          "name":"main",
@@ -64,31 +64,31 @@
             "fields":[
                {
                   "name":"temp",
-                  "type":"double"
+                  "type": ["null", "double"]
                },
                {
                   "name":"pressure",
-                  "type":"int"
+                  "type": ["null", "int"]
                },
                {
                   "name":"humidity",
-                  "type":"int"
+                  "type": ["null", "int"]
                },
                {
                   "name":"tempMin",
-                  "type":"double"
+                  "type": ["null", "double"]
                },
                {
                   "name":"tempMax",
-                  "type":"double"
+                  "type": ["null", "double"]
                },
                {
                   "name":"seaLevel",
-                  "type":"int"
+                  "type": ["null", "int"]
                },
                {
                   "name":"grndLevel",
-                  "type":"int"
+                  "type": ["null", "int"]
                }
             ]
          }
@@ -102,11 +102,11 @@
             "fields":[
                {
                   "name":"speed",
-                  "type":"float"
+                  "type": ["null" ,"float"]
                },
                {
                   "name":"deg",
-                  "type":"int"
+                  "type": ["null", "int"]
                }
             ]
          }
@@ -120,7 +120,7 @@
             "fields":[
                {
                   "name":"all",
-                  "type":"int"
+                  "type": ["null", "int"]
                }
             ]
          }
@@ -134,11 +134,11 @@
             "fields":[
                {
                   "name":"_1h",
-                  "type":"int"
+                  "type": ["null", "int"]
                },
                {
                   "name":"_3h",
-                  "type":"int"
+                  "type": ["null", "int"]
                }
             ]
          }
@@ -149,7 +149,7 @@
       },
       {
          "name":"dt",
-         "type":"long"
+         "type": ["null", "long"]
       },
       {
          "name":"sys",
@@ -160,42 +160,42 @@
             "fields":[
                {
                   "name":"type",
-                  "type":"int"
+                  "type": ["null", "int"]
                },
                {
                   "name":"id",
-                  "type":"int"
+                  "type": ["null", "int"]
                },
                {
                   "name":"message",
-                  "type":"string"
+                  "type": ["null", "string"]
                },
                {
                   "name":"country",
-                  "type":"string"
+                  "type": ["null", "string"]
                },
                {
                   "name":"sunrise",
-                  "type":"long"
+                  "type": ["null", "long"]
                },
                {
                   "name":"sunset",
-                  "type":"long"
+                  "type": ["null", "long"]
                }
             ]
          }
       },
       {
          "name":"id",
-         "type":"int"
+         "type": ["null", "int"]
       },
       {
          "name":"name",
-         "type":"string"
+         "type": ["null", "string"]
       },
       {
          "name":"cod",
-         "type":"int"
+         "type": ["null", "int"]
       }
    ]
 }

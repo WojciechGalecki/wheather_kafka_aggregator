@@ -22,10 +22,8 @@ public class WeatherClientTest {
 
     @Mock
     ApiProperties properties;
-
     @Mock
     RestTemplate restTemplate;
-
     @InjectMocks
     WeatherClient client;
 

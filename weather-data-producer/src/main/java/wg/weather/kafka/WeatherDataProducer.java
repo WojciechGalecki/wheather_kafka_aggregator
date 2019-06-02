@@ -31,7 +31,7 @@ public class WeatherDataProducer {
     private KafkaTopicsProperties kafkaTopicsProperties;
 
     @PostConstruct
-    private void sendWeatherData() throws IOException {
+    public void sendWeatherData() throws IOException {
         var cityNames = cityNamesLoader.getCityNames();
 
         cityNames.forEach(this::sendWeatherDataByCityName);

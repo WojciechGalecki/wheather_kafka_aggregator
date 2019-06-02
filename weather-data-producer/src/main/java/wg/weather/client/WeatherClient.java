@@ -36,7 +36,6 @@ public class WeatherClient {
 
             return Optional.empty();
         }
-
         log.info("Successfully get weather data for city: {}", cityName);
 
         return Optional.ofNullable(model);

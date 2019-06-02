@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties
-public class WeatherApplication {
+public class WeatherDataProcessorApplication {
     public static void main(String[] args) {
-        SpringApplication.run(WeatherApplication.class, args);
+        SpringApplication.run(WeatherDataProcessorApplication.class, args);
     }
 }

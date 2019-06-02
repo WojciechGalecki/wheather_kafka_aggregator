@@ -43,10 +43,10 @@ public class WeatherClient {
 
     private URI getApiUri(String cityName) {
         return UriComponentsBuilder
-                .fromUriString(apiProperties.getUrl())
-                .queryParam(Q_PARAM, cityName)
-                .queryParam(APPID_PARAM, apiProperties.getId())
-                .build()
-                .toUri();
+            .fromUriString(apiProperties.getUrl())
+            .queryParam(Q_PARAM, cityName)
+            .queryParam(APPID_PARAM, apiProperties.getId())
+            .build()
+            .toUri();
     }
 }

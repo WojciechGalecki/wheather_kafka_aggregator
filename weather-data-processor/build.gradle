@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id "com.commercehub.gradle.plugin.avro" version "0.3.4"
 }
 
 apply plugin: "io.spring.dependency-management"
@@ -12,7 +13,6 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
-    compile project(':avro-schemas')
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -22,7 +22,6 @@ dependencies {
         exclude group: 'org.slf4j'
     }
 
-    testCompile project(':avro-schemas')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.kafka:spring-kafka-test:2.2.6.RELEASE'
 }

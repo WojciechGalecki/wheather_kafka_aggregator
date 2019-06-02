@@ -8,16 +8,16 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 subprojects {
-	repositories {
-		mavenLocal()
-		mavenCentral()
-		jcenter()
-		maven { url 'http://packages.confluent.io/maven/' }
-	}
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+        maven { url 'http://packages.confluent.io/maven/' }
+    }
 }

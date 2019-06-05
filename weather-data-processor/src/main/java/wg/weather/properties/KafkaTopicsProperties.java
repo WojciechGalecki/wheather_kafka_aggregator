@@ -10,6 +10,6 @@ import lombok.Data;
 @ConfigurationProperties("kafka.topics")
 public class KafkaTopicsProperties {
     private String weather;
-    private String fromPoland;
+    private String lowTemp;
     private String highTemp;
 }

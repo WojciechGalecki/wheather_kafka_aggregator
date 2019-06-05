@@ -1,4 +1,4 @@
-package wg.weather.utils;
+package wg.weather.loader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -4,7 +4,6 @@ import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.KStream;
@@ -20,6 +19,8 @@ import wg.weather.properties.KafkaTopicsProperties;
 @Component
 public class WeatherDataProcessor {
 
+    public static final double ZERO_CELSIUS_IN_KELWIN = 273.15;
+    public static final double THIRTY_CELSIUS_IN_KELWIN = 303.15;
     @Autowired
     private KafkaTopicsProperties kafkaTopicsProperties;
 
@@ -39,29 +40,33 @@ public class WeatherDataProcessor {
     private KafkaStreams createTopology(Properties config) {
         StreamsBuilder builder = new StreamsBuilder();
 
-        KStream<Bytes, WeatherModel> weatherData = builder.stream(kafkaTopicsProperties.getWeather());
+        KStream<String, WeatherModel> weatherData = builder.stream(kafkaTopicsProperties.getWeather());
 
-        KStream<Bytes, WeatherModel>[] branches = weatherData.branch(
-            (k, data) -> isDataFromPoland(data),
-            (k, data) -> isTempHigh(data)
+        KStream<String, WeatherModel>[] branches = weatherData.branch(
+            (k, data) -> isTempBelowZeroCelsius(data),
+            (k, data) -> isTempOverThirtyCelsius(data)
         );
 
-        KStream<Bytes, WeatherModel> dataFromPoland = branches[0];
-        KStream<Bytes, WeatherModel> dataWithHighTemp = branches[1];
+        KStream<String, WeatherModel> tempBelowZero = branches[0];
+        KStream<String, WeatherModel> tempOverThirty = branches[1];
 
-        dataFromPoland.peek((k, data) -> log.info("Weather data from Poland: {}", data.getName()))
-        .to(kafkaTopicsProperties.getFromPoland());
-        dataWithHighTemp.peek((k, data) -> log.info("Weather data with high temp: {}", data.getMain().getTemp()))
+        tempBelowZero.peek((k, data) -> log.info("Weather data from Poland: {}", data.getName()))
+        .to(kafkaTopicsProperties.getLowTemp());
+        tempOverThirty.peek((k, data) -> log.info("Weather data with high temp: {}", getTemp(data)))
         .to(kafkaTopicsProperties.getHighTemp());
 
         return new KafkaStreams(builder.build(), config);
     }
 
-    private boolean isDataFromPoland(WeatherModel data) {
-        return data.getSys().getCountry().equals("Poland");
+    private boolean isTempBelowZeroCelsius(WeatherModel data) {
+        return getTemp(data) < ZERO_CELSIUS_IN_KELWIN;
     }
 
-    private boolean isTempHigh(WeatherModel data) {
-        return data.getMain().getTemp() >= 30.0;
+    private boolean isTempOverThirtyCelsius(WeatherModel data) {
+        return getTemp(data) > THIRTY_CELSIUS_IN_KELWIN;
+    }
+
+    private Double getTemp(WeatherModel data) {
+        return data.getMain().getTemp();
     }
 }

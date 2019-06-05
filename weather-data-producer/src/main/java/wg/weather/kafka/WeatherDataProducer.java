@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import wg.weather.client.WeatherClient;
 import wg.weather.model.WeatherModel;
 import wg.weather.properties.KafkaTopicsProperties;
-import wg.weather.utils.CityNamesLoader;
+import wg.weather.loader.CityNamesLoader;
 
 @Slf4j
 @Component

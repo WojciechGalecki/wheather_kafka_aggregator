@@ -3,3 +3,5 @@ kafka:
   schema_registry: http://localhost:8081
   topics:
     weather: Weather
+    fromPoland: fromPoland
+    highTemp: highTemp

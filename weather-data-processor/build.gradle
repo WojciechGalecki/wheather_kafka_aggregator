@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '2.1.4.RELEASE'
-    id "com.commercehub.gradle.plugin.avro" version "0.3.4"
 }
 
 apply plugin: "io.spring.dependency-management"
@@ -12,16 +11,25 @@ version '0.0.1-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
+configurations {
+    all*.exclude module : 'spring-boot-starter-logging'
+}
+
 dependencies {
+    compile project(':avro-schemas')
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
-    compile "org.apache.avro:avro:1.8.2"
-    compile "org.springframework.kafka:spring-kafka:2.2.6.RELEASE"
+    compile 'org.apache.avro:avro:1.8.2'
+    compile 'org.springframework.kafka:spring-kafka:2.2.6.RELEASE'
+    compile 'org.apache.kafka:kafka-streams:2.2.0'
+    compile 'org.apache.kafka:kafka-clients:2.2.0'
     compile("io.confluent:kafka-avro-serializer:3.3.1") {
         exclude group: 'org.slf4j'
     }
-
+    compile 'io.confluent:kafka-streams-avro-serde:3.3.0'
+    
+    testCompile project(':avro-schemas')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.kafka:spring-kafka-test:2.2.6.RELEASE'
 }

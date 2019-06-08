@@ -17,7 +17,7 @@ services:
       - kafka-cluster
 
   kafka-cluster:
-    image: landoop/fast-data-dev:cp3.3.1
+    image: landoop/fast-data-dev:cp3.3.0
     environment:
       ADV_HOST: 127.0.0.1
     ports:

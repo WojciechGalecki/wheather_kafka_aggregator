@@ -1,4 +1,4 @@
-package wg.weather.utils;
+package wg.weather.loader;
 
 import java.io.IOException;
 import java.net.URL;

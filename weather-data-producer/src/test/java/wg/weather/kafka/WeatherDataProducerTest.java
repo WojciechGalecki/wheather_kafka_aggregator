@@ -26,7 +26,7 @@ import wg.weather.model.WeatherItem;
 import wg.weather.model.WeatherModel;
 import wg.weather.model.Wind;
 import wg.weather.properties.KafkaTopicsProperties;
-import wg.weather.utils.CityNamesLoader;
+import wg.weather.loader.CityNamesLoader;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WeatherDataProducerTest {

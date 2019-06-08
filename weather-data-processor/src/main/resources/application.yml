@@ -2,6 +2,7 @@ kafka:
   broker: localhost:9092
   schema_registry: http://localhost:8081
   topics:
-    weather: weather
-    lowTemp: lowTemp
-    highTemp: highTemp
+    weather: weather_data
+    lowTemp: low-temp
+    highTemp: high_temp
+    strongWind: stong_wind

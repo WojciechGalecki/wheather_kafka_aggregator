@@ -12,4 +12,5 @@ public class KafkaTopicsProperties {
     private String weather;
     private String lowTemp;
     private String highTemp;
+    private String strongWind;
 }

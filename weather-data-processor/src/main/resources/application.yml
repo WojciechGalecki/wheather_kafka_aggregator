@@ -6,3 +6,5 @@ kafka:
     lowTemp: low-temp
     highTemp: high_temp
     strongWind: stong_wind
+  defaultTopicNumPartitions: 1
+  defaultTopicReplicationFactor: 1

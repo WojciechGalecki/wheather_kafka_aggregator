@@ -38,26 +38,30 @@ public class WeatherDataProducer {
     }
 
     private void sendWeatherDataByCityName(String name) {
-        var optionalWeatherModel = weatherClient.getWeatherByCityName(name);
+        try {
+            var optionalWeatherModel = weatherClient.getWeatherByCityName(name);
 
-        if (optionalWeatherModel.isPresent()) {
+            if (optionalWeatherModel.isPresent()) {
 
-            ListenableFuture<SendResult<String, WeatherModel>> result
-                = kafkaTemplate.send(kafkaTopicsProperties.getWeather(), name, optionalWeatherModel.get());
+                ListenableFuture<SendResult<String, WeatherModel>> result
+                    = kafkaTemplate.send(kafkaTopicsProperties.getWeather(), name, optionalWeatherModel.get());
 
-            result.addCallback(new ListenableFutureCallback<>() {
-                @Override
-                public void onSuccess(SendResult<String, WeatherModel> result) {
-                    var metadata = result.getRecordMetadata();
-                    log.info("Successfully send data for: {} on topic: {} and partition: {}", name,
-                        metadata.topic(), metadata.partition());
-                }
+                result.addCallback(new ListenableFutureCallback<>() {
+                    @Override
+                    public void onSuccess(SendResult<String, WeatherModel> result) {
+                        var metadata = result.getRecordMetadata();
+                        log.info("Successfully send data for: {} on topic: {} and partition: {}", name,
+                            metadata.topic(), metadata.partition());
+                    }
 
-                @Override
-                public void onFailure(Throwable ex) {
-                    log.error("Unable to send data for city: {} due to: {}", name, ex.getMessage());
-                }
-            });
+                    @Override
+                    public void onFailure(Throwable ex) {
+                        log.error("Unable to send data for city: {} due to: {}", name, ex.getMessage());
+                    }
+                });
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
     }
 }

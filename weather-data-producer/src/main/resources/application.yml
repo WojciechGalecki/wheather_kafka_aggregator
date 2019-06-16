@@ -3,9 +3,7 @@ api:
   url: http://api.openweathermap.org/data/2.5/weather
 
 kafka:
-  #broker: kafka:9092
   broker: localhost:9092
-  #schema_registry: http://kafka:8081
   schema_registry: http://localhost:8081
   topics:
     weather: weather_data

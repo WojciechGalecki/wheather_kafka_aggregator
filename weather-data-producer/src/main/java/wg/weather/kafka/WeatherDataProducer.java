@@ -34,10 +34,16 @@ public class WeatherDataProducer {
     public void sendWeatherData() throws IOException {
         var cityNames = cityNamesLoader.getCityNames();
 
-        cityNames.forEach(this::sendWeatherDataByCityName);
+        cityNames.forEach(name -> {
+            try {
+                sendWeatherDataByCityName(name);
+            } catch (Throwable ex) {
+                log.error("Unexpected error during sending data towards kafka: \n {}", ex.getMessage());
+            }
+        });
     }
 
-    private void sendWeatherDataByCityName(String name) {
+    private void sendWeatherDataByCityName(String name) throws Throwable {
         var optionalWeatherModel = weatherClient.getWeatherByCityName(name);
 
         if (optionalWeatherModel.isPresent()) {

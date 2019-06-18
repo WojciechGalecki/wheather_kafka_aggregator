@@ -17,14 +17,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.SettableListenableFuture;
 
+import wg.weather.avro.Clouds;
+import wg.weather.avro.Coord;
+import wg.weather.avro.Main;
+import wg.weather.avro.Sys;
+import wg.weather.avro.Weather;
+import wg.weather.avro.WeatherData;
+import wg.weather.avro.Wind;
 import wg.weather.client.WeatherClient;
-import wg.weather.model.Clouds;
-import wg.weather.model.Coord;
-import wg.weather.model.Main;
-import wg.weather.model.Sys;
-import wg.weather.model.WeatherItem;
-import wg.weather.model.WeatherModel;
-import wg.weather.model.Wind;
 import wg.weather.properties.KafkaTopicsProperties;
 import wg.weather.loader.CityNamesLoader;
 
@@ -47,9 +47,9 @@ public class WeatherDataProducerTest {
     @Test
     public void When_() throws IOException {
         //given
-        var weatherModel = Optional.of(WeatherModel.newBuilder()
+        var weatherData = Optional.of(WeatherData.newBuilder()
             .setCoord(new Coord(1.0, 1.0))
-            .setWeather(Collections.singletonList(WeatherItem.newBuilder()
+            .setWeather(Collections.singletonList(Weather.newBuilder()
                 .setId(1)
                 .setDescription("")
                 .setMain("")
@@ -65,8 +65,8 @@ public class WeatherDataProducerTest {
                 .setTempMax(1.0)
                 .setTempMin(1.0)
                 .build())
-            .setWind(new Wind(1.0f, 1))
-            .setClouds(new Clouds(1))
+            .setWind(new Wind(1.0, 1l))
+            .setClouds(new Clouds(1l))
             .setDt(1L)
             .setSys(Sys.newBuilder()
                 .setCountry("")
@@ -84,7 +84,7 @@ public class WeatherDataProducerTest {
         //when
         when(kafkaTopicsProperties.getWeather()).thenReturn(TOPIC);
         when(cityNamesLoader.getCityNames()).thenReturn(Collections.singletonList(CITY));
-        when(weatherClient.getWeatherByCityName(CITY)).thenReturn(weatherModel);
+        when(weatherClient.getWeatherByCityName(CITY)).thenReturn(weatherData);
 
         SettableListenableFuture<SendResult<Object, Object>> kafkaFuture = new SettableListenableFuture<>();
         kafkaFuture.set(new SendResult<>(null, null));
@@ -93,6 +93,6 @@ public class WeatherDataProducerTest {
         //then
         weatherDataProducer.sendWeatherData();
 
-        verify(kafkaTemplate).send(TOPIC, CITY, weatherModel.get());
+        verify(kafkaTemplate).send(TOPIC, CITY, weatherData.get());
     }
 }

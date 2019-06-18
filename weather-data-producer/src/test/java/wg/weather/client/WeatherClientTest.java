@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
-import wg.weather.model.WeatherModel;
+import wg.weather.avro.WeatherData;
 import wg.weather.properties.ApiProperties;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,6 +37,6 @@ public class WeatherClientTest {
     public void When_GetWeatherByCityName_Expect_ProperCallToApi() throws URISyntaxException {
         String expectedUrl = "url?q=city&APPID=id";
         client.getWeatherByCityName("city");
-        verify(restTemplate).getForObject(new URI(expectedUrl), WeatherModel.class);
+        verify(restTemplate).getForObject(new URI(expectedUrl), WeatherData.class);
     }
 }

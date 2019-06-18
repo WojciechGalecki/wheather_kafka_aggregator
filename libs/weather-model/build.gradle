@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+}
+
+group 'wg.weather'
+version '0.0.1-SNAPSHOT'
+
+dependencies {
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.9'
+}

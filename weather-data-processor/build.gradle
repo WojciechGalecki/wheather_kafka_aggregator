@@ -16,7 +16,7 @@ configurations {
 }
 
 dependencies {
-    compile project(':avro-schemas')
+    compile project(':avro-model')
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -29,7 +29,7 @@ dependencies {
     }
     compile 'io.confluent:kafka-streams-avro-serde:3.3.0'
     
-    testCompile project(':avro-schemas')
+    testCompile project(':avro-model')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.kafka:spring-kafka-test:2.2.6.RELEASE'
 }

@@ -2,6 +2,8 @@ rootProject.name = 'weather_kafka_aggregator'
 
 include 'weather-data-producer'
 include 'weather-data-processor'
-include 'avro-schemas'
+include 'avro-model'
+include 'weather-model'
 
-project(':avro-schemas').projectDir = file('./libs/avro-schemas')
+project(':avro-model').projectDir = file('./libs/avro-model')
+project(':weather-model').projectDir = file('./libs/weather-model')

@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import wg.weather.model.WeatherModel;
+import wg.weather.avro.WeatherData;
 import wg.weather.properties.KafkaStreamsProperties;
 import wg.weather.properties.KafkaTopicsProperties;
 
@@ -42,9 +42,9 @@ public class WeatherDataProcessor {
     private KafkaStreams createTopology(Properties config) {
         StreamsBuilder builder = new StreamsBuilder();
 
-        KStream<String, WeatherModel> weatherData = builder.stream(kafkaTopicsProperties.getWeather());
+        KStream<String, WeatherData> weatherData = builder.stream(kafkaTopicsProperties.getWeather());
 
-        KStream<String, WeatherModel>[] branches = weatherData.branch(
+        KStream<String, WeatherData>[] branches = weatherData.branch(
             (k, data) -> isTempBelowZeroCelsius(data),
             (k, data) -> isTempOver30Celsius(data),
             (k, data) -> isWindSpeedOver15MetersPerSec(data)
@@ -55,30 +55,30 @@ public class WeatherDataProcessor {
         return new KafkaStreams(builder.build(), config);
     }
 
-    private boolean isTempBelowZeroCelsius(WeatherModel data) {
+    private boolean isTempBelowZeroCelsius(WeatherData data) {
         return getTemp(data) < ZERO_CELSIUS_IN_KELWIN;
     }
 
-    private boolean isTempOver30Celsius(WeatherModel data) {
+    private boolean isTempOver30Celsius(WeatherData data) {
         return getTemp(data) > THIRTY_CELSIUS_IN_KELWIN;
     }
 
-    private boolean isWindSpeedOver15MetersPerSec(WeatherModel data) {
+    private boolean isWindSpeedOver15MetersPerSec(WeatherData data) {
         return getWindSpeed(data) > FIFTEEN_METERS_PER_SEC;
     }
 
-    private Double getTemp(WeatherModel data) {
+    private Double getTemp(WeatherData data) {
         return data.getMain().getTemp();
     }
 
-    private Float getWindSpeed(WeatherModel data) {
+    private Double getWindSpeed(WeatherData data) {
         return data.getWind().getSpeed();
     }
 
-    private void sendAndLogStreamBranchesData(KStream<String, WeatherModel>[] branches) {
-        KStream<String, WeatherModel> tempBelowZeroCelsius = branches[0];
-        KStream<String, WeatherModel> tempOver30Celsius = branches[1];
-        KStream<String, WeatherModel> windSpeedOver15ms = branches[2];
+    private void sendAndLogStreamBranchesData(KStream<String, WeatherData>[] branches) {
+        KStream<String, WeatherData> tempBelowZeroCelsius = branches[0];
+        KStream<String, WeatherData> tempOver30Celsius = branches[1];
+        KStream<String, WeatherData> windSpeedOver15ms = branches[2];
 
         final String LOW_TEMP_TOPIC = kafkaTopicsProperties.getLowTemp();
         final String HIGH_TEMP_TOPIC = kafkaTopicsProperties.getHighTemp();
@@ -89,7 +89,7 @@ public class WeatherDataProcessor {
         sendAndLogSingleBranchData(windSpeedOver15ms, STRONG_WIND_TOPIC);
     }
 
-    private void sendAndLogSingleBranchData(KStream<String, WeatherModel> streamBranchData, String topic) {
+    private void sendAndLogSingleBranchData(KStream<String, WeatherData> streamBranchData, String topic) {
         streamBranchData.peek((k, data) -> log.info(KAFKA_SENDING_LOG_MSG, k, topic)).to(topic);
     }
 }

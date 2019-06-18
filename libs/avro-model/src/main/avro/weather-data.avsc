@@ -1,0 +1,174 @@
+{
+  "type" : "record",
+  "name" : "WeatherData",
+  "namespace" : "wg.weather.avro",
+  "fields" : [ {
+    "name" : "coord",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Coord",
+      "fields" : [ {
+        "name" : "lon",
+        "type" : "double"
+      }, {
+        "name" : "lat",
+        "type" : "double"
+      } ]
+    } ],
+    "default" : null
+  }, {
+    "name" : "weather",
+    "type" : [ "null", {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "Weather",
+        "fields" : [ {
+          "name" : "id",
+          "type" : "long"
+        }, {
+          "name" : "main",
+          "type" : [ "null", "string" ],
+          "default" : null
+        }, {
+          "name" : "description",
+          "type" : [ "null", "string" ],
+          "default" : null
+        }, {
+          "name" : "icon",
+          "type" : [ "null", "string" ],
+          "default" : null
+        } ]
+      },
+      "java-class" : "java.util.List"
+    } ],
+    "default" : null
+  }, {
+    "name" : "base",
+    "type" : [ "null", "string" ],
+    "default" : null
+  }, {
+    "name" : "main",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Main",
+      "fields" : [ {
+        "name" : "temp",
+        "type" : "double"
+      }, {
+        "name" : "pressure",
+        "type" : "long"
+      }, {
+        "name" : "humidity",
+        "type" : "long"
+      }, {
+        "name" : "tempMin",
+        "type" : "double"
+      }, {
+        "name" : "tempMax",
+        "type" : "double"
+      }, {
+        "name" : "seaLevel",
+        "type" : "long"
+      }, {
+        "name" : "grndLevel",
+        "type" : "long"
+      } ]
+    } ],
+    "default" : null
+  }, {
+    "name" : "wind",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Wind",
+      "fields" : [ {
+        "name" : "speed",
+        "type" : "double"
+      }, {
+        "name" : "deg",
+        "type" : "long"
+      } ]
+    } ],
+    "default" : null
+  }, {
+    "name" : "clouds",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Clouds",
+      "fields" : [ {
+        "name" : "all",
+        "type" : "long"
+      } ]
+    } ],
+    "default" : null
+  }, {
+    "name" : "rain",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Rain",
+      "fields" : [ {
+        "name" : "oneHour",
+        "type" : "int"
+      }, {
+        "name" : "threeHours",
+        "type" : "int"
+      } ]
+    } ],
+    "default" : null
+  }, {
+    "name" : "snow",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Snow",
+      "fields" : [ {
+        "name" : "oneHour",
+        "type" : "int"
+      }, {
+        "name" : "threeHours",
+        "type" : "int"
+      } ]
+    } ],
+    "default" : null
+  }, {
+    "name" : "dt",
+    "type" : "long"
+  }, {
+    "name" : "sys",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Sys",
+      "fields" : [ {
+        "name" : "type",
+        "type" : "int"
+      }, {
+        "name" : "id",
+        "type" : "long"
+      }, {
+        "name" : "message",
+        "type" : [ "null", "string" ],
+        "default" : null
+      }, {
+        "name" : "country",
+        "type" : [ "null", "string" ],
+        "default" : null
+      }, {
+        "name" : "sunrise",
+        "type" : "long"
+      }, {
+        "name" : "sunset",
+        "type" : "long"
+      } ]
+    } ],
+    "default" : null
+  }, {
+    "name" : "id",
+    "type" : "long"
+  }, {
+    "name" : "name",
+    "type" : [ "null", "string" ],
+    "default" : null
+  }, {
+    "name" : "cod",
+    "type" : "long"
+  } ]
+}

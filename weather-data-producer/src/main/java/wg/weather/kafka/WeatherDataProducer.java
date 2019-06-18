@@ -13,7 +13,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import wg.weather.client.WeatherClient;
-import wg.weather.model.WeatherModel;
+import wg.weather.model.WeatherData;
 import wg.weather.properties.KafkaTopicsProperties;
 import wg.weather.loader.CityNamesLoader;
 
@@ -48,12 +48,12 @@ public class WeatherDataProducer {
 
         if (optionalWeatherModel.isPresent()) {
 
-            ListenableFuture<SendResult<String, WeatherModel>> result
+            ListenableFuture<SendResult<String, WeatherData>> result
                 = kafkaTemplate.send(kafkaTopicsProperties.getWeather(), name, optionalWeatherModel.get());
 
             result.addCallback(new ListenableFutureCallback<>() {
                 @Override
-                public void onSuccess(SendResult<String, WeatherModel> result) {
+                public void onSuccess(SendResult<String, WeatherData> result) {
                     var metadata = result.getRecordMetadata();
                     log.info("Successfully send data for: {} on topic: {} and partition: {}", name,
                         metadata.topic(), metadata.partition());

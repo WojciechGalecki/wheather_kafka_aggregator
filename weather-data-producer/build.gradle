@@ -12,7 +12,8 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
-    compile project(':avro-schemas')
+    compile project(':avro-model')
+    compile project(':weather-model')
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -22,7 +23,8 @@ dependencies {
         exclude group: 'org.slf4j'
     }
 
-    testCompile project(':avro-schemas')
+    testCompile project(':avro-model')
+    testCompile project(':weather-model')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.kafka:spring-kafka-test:2.2.6.RELEASE'
 }

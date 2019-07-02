@@ -1,13 +1,34 @@
+buildscript {
+    dependencies {
+        classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.14.2"
+    }
+}
+
 plugins {
     id 'java'
-    id "com.commercehub.gradle.plugin.avro" version "0.3.4"
 }
 
 group 'wg.weather'
 version '0.0.1-SNAPSHOT'
 
+repositories {
+    mavenCentral()
+}
+
+apply plugin: "com.commercehub.gradle.plugin.avro-base"
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
 dependencies {
     compile 'org.apache.avro:avro:1.8.2'
-
-    compile project(':weather-model')
 }
+
+task generateAvroModels(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("../avro-schemas/src/main/avro")
+    outputDir = file("build/avro-models")
+}
+
+compileJava.dependsOn generateAvroModels
+
+sourceSets.main.java.srcDir generateAvroModels.outputs

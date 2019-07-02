@@ -10,7 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import wg.weather.avro.WeatherData;
+import wg.weather.model.WeatherData;
 import wg.weather.properties.ApiProperties;
 
 @Component
@@ -23,7 +23,7 @@ public class WeatherClient {
     private ApiProperties apiProperties;
     private RestTemplate restTemplate;
 
-    public Optional<wg.weather.avro.WeatherData> getWeatherByCityName(String cityName) {
+    public Optional<WeatherData> getWeatherByCityName(String cityName) {
         log.info("Getting weather data for city: {}", cityName);
 
         URI uri = getApiUri(cityName);

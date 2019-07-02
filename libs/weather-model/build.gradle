@@ -6,5 +6,13 @@ group 'wg.weather'
 version '0.0.1-SNAPSHOT'
 
 dependencies {
+    compile project(':avro-model')
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.9'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+    testCompile project(':avro-model')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testCompile 'org.assertj:assertj-core:3.12.2'
 }

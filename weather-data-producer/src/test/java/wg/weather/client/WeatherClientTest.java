@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
-import wg.weather.avro.WeatherData;
+import wg.weather.model.WeatherData;
 import wg.weather.properties.ApiProperties;
 
 @RunWith(MockitoJUnitRunner.class)

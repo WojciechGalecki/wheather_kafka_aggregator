@@ -14,7 +14,7 @@ import org.apache.avro.reflect.ReflectData;
 import wg.weather.model.WeatherData;
 
 public class AvroSchemaGenerator {
-    private static final String AVRO_SCHEMAS_DIR = "libs/avro-model/src/main/avro/";
+    private static final String AVRO_SCHEMAS_DIR = "libs/avro-schemas/src/main/avro/";
 
     public static void main(String[] args) {
         String weatherDataSchema = getSchema(WeatherData.class);

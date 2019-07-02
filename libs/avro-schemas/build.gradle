@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+group 'wg.weather'
+version '0.0.1-SNAPSHOT'
+
+dependencies {
+    compile project(':weather-model')
+    compile 'org.apache.avro:avro:1.8.2'
+}

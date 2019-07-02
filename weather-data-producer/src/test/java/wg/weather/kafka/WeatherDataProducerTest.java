@@ -17,16 +17,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.util.concurrent.SettableListenableFuture;
 
-import wg.weather.avro.Clouds;
-import wg.weather.avro.Coord;
-import wg.weather.avro.Main;
-import wg.weather.avro.Sys;
-import wg.weather.avro.Weather;
-import wg.weather.avro.WeatherData;
-import wg.weather.avro.Wind;
 import wg.weather.client.WeatherClient;
-import wg.weather.properties.KafkaTopicsProperties;
 import wg.weather.loader.CityNamesLoader;
+import wg.weather.mapper.WeatherDataMapper;
+import wg.weather.properties.KafkaTopicsProperties;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WeatherDataProducerTest {
@@ -45,41 +39,42 @@ public class WeatherDataProducerTest {
     WeatherDataProducer weatherDataProducer;
 
     @Test
-    public void When_() throws IOException {
+    public void When_SendWeatherData_Expect_SendingDataToProperKafkaTopic() throws IOException {
         //given
-        var weatherData = Optional.of(WeatherData.newBuilder()
-            .setCoord(new Coord(1.0, 1.0))
-            .setWeather(Collections.singletonList(Weather.newBuilder()
-                .setId(1)
-                .setDescription("")
-                .setMain("")
-                .setIcon("")
+        var weatherData = Optional.of(wg.weather.model.WeatherData.builder()
+            .coord(new wg.weather.model.Coord(1.0, 1.0))
+            .weather(Collections.singletonList(wg.weather.model.Weather.builder()
+                .id(1L)
+                .description("")
+                .main("")
+                .icon("")
                 .build()))
-            .setBase("")
-            .setMain(Main.newBuilder()
-                .setGrndLevel(1)
-                .setHumidity(1)
-                .setPressure(1)
-                .setSeaLevel(1)
-                .setTemp(1.0)
-                .setTempMax(1.0)
-                .setTempMin(1.0)
+            .base("")
+            .main(wg.weather.model.Main.builder()
+                .grndLevel(1L)
+                .humidity(1L)
+                .pressure(1L)
+                .seaLevel(1L)
+                .temp(1.0)
+                .tempMax(1.0)
+                .tempMin(0.0)
                 .build())
-            .setWind(new Wind(1.0, 1l))
-            .setClouds(new Clouds(1l))
-            .setDt(1L)
-            .setSys(Sys.newBuilder()
-                .setCountry("")
-                .setId(1)
-                .setMessage("")
-                .setSunrise(1L)
-                .setSunset(1L)
-                .setType(1)
+            .wind(new wg.weather.model.Wind(1.0, 1L))
+            .clouds(new wg.weather.model.Clouds(1L))
+            .dt(1L)
+            .sys(wg.weather.model.Sys.builder()
+                .country("")
+                .id(1L)
+                .message("")
+                .sunrise(1L)
+                .sunset(1L)
+                .type(1)
                 .build())
-            .setId(1)
-            .setName("")
-            .setCod(1)
-            .build());
+            .id(1L)
+            .name("")
+            .cod(1L).build());
+
+        var weatherDataAvro = WeatherDataMapper.mapToAvro(weatherData.get());
 
         //when
         when(kafkaTopicsProperties.getWeather()).thenReturn(TOPIC);
@@ -93,6 +88,6 @@ public class WeatherDataProducerTest {
         //then
         weatherDataProducer.sendWeatherData();
 
-        verify(kafkaTemplate).send(TOPIC, CITY, weatherData.get());
+        verify(kafkaTemplate).send(TOPIC, CITY, weatherDataAvro);
     }
 }
